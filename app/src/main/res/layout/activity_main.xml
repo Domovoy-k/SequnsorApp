@@ -13,4 +13,10 @@
         android:layout_height="wrap_content"
         android:text="Тест Гудка" />
 
+    <TextView
+        android:id="@+id/textView01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Text" />
+
 </LinearLayout>
