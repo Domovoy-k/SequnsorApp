@@ -13,11 +13,19 @@ import android.widget.Button;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
+
         }
 
-        Button button01 = findViewById(R.id.button01);
+        View.OnClickListener myButtonClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button button01 = findViewById(R.id.button01);
 
-        
+                button01.setOnClickListener();
+            }
+        };
+
+
 
 
     }
