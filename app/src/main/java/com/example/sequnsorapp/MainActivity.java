@@ -3,6 +3,7 @@ package com.example.sequnsorapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.usage.UsageEvents;
+import android.content.res.AssetManager;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaRecorder;
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     int sound01;
 
     int streamSound01;
-    
+
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
             try {
-                sound01 = sp.load(getAssets().openFd("C:\\AndroidProject\\Sound_01297.wav"), 1);
+                sound01 = sp.load(getAssets().openFd("Sound_01.wav"), 1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
