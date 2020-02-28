@@ -9,6 +9,7 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,13 +48,36 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         sp = new SoundPool.Builder()
                 .setAudioAttributes(attributes)
-                .setMaxStreams(1)
                 .build();
 
-        sound01 = loadSound("Sound_01.wav");
+        am = getAssets();
 
+        sound01 = loadSound("Sound_01.wav");
+        sound02 = loadSound("Sound_02.wav");
+        sound03 = loadSound("Sound_03.wav");
+
+        soundButton1.setOnClickListener(onClickListener);
+        soundButton2.setOnClickListener(onClickListener);
+        soundButton3.setOnClickListener(onClickListener);
 
     }
+
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.soundButton1:
+                    playSound(sound01);
+                    break;
+                case R.id.soundButton2:
+                    playSound(sound02);
+                    break;
+                case R.id.soundButton3:
+                    playSound(sound03);
+                    break;
+            }
+        }
+    };
 
     private int loadSound (String fileName) {
         AssetFileDescriptor afd;
