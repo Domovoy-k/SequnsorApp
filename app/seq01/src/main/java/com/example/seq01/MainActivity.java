@@ -91,10 +91,9 @@ public class MainActivity extends AppCompatActivity {
         return sp.load(afd, 1);
     }
 
-    private  int playSound (int sound) {
+    private void playSound (int sound) {
         if (sound > 0) {
             streamSound = sp.play(1,1,1,1,0, 1);
         }
-        return streamSound;
     }
 }
