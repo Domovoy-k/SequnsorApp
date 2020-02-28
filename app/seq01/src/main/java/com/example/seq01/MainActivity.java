@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     AssetManager am;
     SoundPool sp;
-    int sound01, sound02, sound03;
+    private int sound01, sound02, sound03;
     int streamSound;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -93,7 +93,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void playSound (int sound) {
         if (sound > 0) {
-            streamSound = sp.play(1,1,1,1,0, 1);
+            streamSound = sp.play(sound,1,1,1,0, 1);
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sp.release();
+        sp = null;
     }
 }
