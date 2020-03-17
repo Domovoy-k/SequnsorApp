@@ -55,15 +55,15 @@ public class MainActivity extends AppCompatActivity {
         soundButton3 = findViewById(R.id.soundButton3);
         testButton = findViewById(R.id.reaction_startButton);
 
-        soundText1 = (TextView) findViewById(R.id.firstSound_text);
-        soundText2 = (TextView) findViewById(R.id.secondSound_text);
-        soundText3 = (TextView) findViewById(R.id.thirdSound_text);
-        reactionText1 = (TextView) findViewById(R.id.reaction_text1);
-        reactionText2 = (TextView) findViewById(R.id.reaction_text2);
-        reactionText3 = (TextView) findViewById(R.id.reaction_text3);
-        reactionText4 = (TextView) findViewById(R.id.reaction_text4);
+        soundText1 = findViewById(R.id.firstSound_text);
+        soundText2 = findViewById(R.id.secondSound_text);
+        soundText3 = findViewById(R.id.thirdSound_text);
+        reactionText1 = findViewById(R.id.reaction_text1);
+        reactionText2 = findViewById(R.id.reaction_text2);
+        reactionText3 = findViewById(R.id.reaction_text3);
+        reactionText4 = findViewById(R.id.reaction_text4);
 
-        react = (LinearLayout) findViewById(R.id.reaction_layout);
+        react = findViewById(R.id.reaction_layout);
 
         sound01 = loadSound("Sound_01.wav");
         sound02 = loadSound("Sound_02.wav");
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         soundButton1.setOnClickListener(onClickListener);
         soundButton2.setOnClickListener(onClickListener);
         soundButton3.setOnClickListener(onClickListener);
+        testButton.setOnClickListener(onClickListener);
 
         soundText1.setOnLongClickListener(onLongClickListener);
         soundText2.setOnLongClickListener(onLongClickListener);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             final View view = (View) event.getLocalState();
 
             switch (action) {
-                case DragEvent.ACTION_DRAG_ENTERED:
+                case DragEvent.ACTION_DROP:
                     if (v.getId() == R.id.reaction_text1) {
                         if (view.getId() == R.id.firstSound_text) {
                             reactionText1.setText("Sound1");
@@ -156,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
                     break;
-                case DragEvent.ACTION_DROP:
+                case DragEvent.ACTION_DRAG_ENTERED:
                     break;
             }
             return true;
@@ -176,6 +177,15 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.soundButton3:
                     playSound(sound03);
                     break;
+                case R.id.reaction_startButton:
+                    if (reactionText1.getText() == "Sound1") {
+                        playSound(sound01);
+                    } else if (reactionText1.getText() == "Sound2") {
+                        playSound(sound02);
+                    } else if (reactionText1.getText() == "Sound3") {
+                        playSound(sound03);
+                    }
+
             }
         }
     };
