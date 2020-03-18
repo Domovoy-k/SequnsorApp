@@ -196,6 +196,11 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Playing 1", Toast.LENGTH_LONG).show();
                                 break;
                             case 1:
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 if (reactionText2.getText() == "Sound1") {
                                     playSound(sound01);
                                 } else if (reactionText2.getText() == "Sound2") {
@@ -206,6 +211,11 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Playing 2", Toast.LENGTH_LONG).show();
                                 break;
                             case 2:
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 if (reactionText3.getText() == "Sound1") {
                                     playSound(sound01);
                                 } else if (reactionText3.getText() == "Sound2") {
@@ -216,6 +226,11 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Playing 3", Toast.LENGTH_LONG).show();
                                 break;
                             case 3:
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 if (reactionText4.getText() == "Sound1") {
                                     playSound(sound01);
                                 } else if (reactionText4.getText() == "Sound2") {
