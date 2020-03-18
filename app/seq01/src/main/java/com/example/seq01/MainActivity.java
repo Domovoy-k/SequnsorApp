@@ -22,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .build();
         sp = new SoundPool.Builder()
+                .setMaxStreams(4)
                 .setAudioAttributes(attributes)
                 .build();
 
@@ -178,14 +181,52 @@ public class MainActivity extends AppCompatActivity {
                     playSound(sound03);
                     break;
                 case R.id.reaction_startButton:
-                    if (reactionText1.getText() == "Sound1") {
-                        playSound(sound01);
-                    } else if (reactionText1.getText() == "Sound2") {
-                        playSound(sound02);
-                    } else if (reactionText1.getText() == "Sound3") {
-                        playSound(sound03);
-                    }
 
+                    for (int i = 0; i < 4; i++) {
+
+                        switch (i) {
+                            case 0:
+                                if (reactionText1.getText() == "Sound1") {
+                                    playSound(sound01);
+                                } else if (reactionText1.getText() == "Sound2") {
+                                    playSound(sound02);
+                                } else if (reactionText1.getText() == "Sound3") {
+                                    playSound(sound03);
+                                }
+                                Toast.makeText(getApplicationContext(), "Playing 1", Toast.LENGTH_LONG).show();
+                                break;
+                            case 1:
+                                if (reactionText2.getText() == "Sound1") {
+                                    playSound(sound01);
+                                } else if (reactionText2.getText() == "Sound2") {
+                                    playSound(sound02);
+                                } else if (reactionText2.getText() == "Sound3") {
+                                    playSound(sound03);
+                                }
+                                Toast.makeText(getApplicationContext(), "Playing 2", Toast.LENGTH_LONG).show();
+                                break;
+                            case 2:
+                                if (reactionText3.getText() == "Sound1") {
+                                    playSound(sound01);
+                                } else if (reactionText3.getText() == "Sound2") {
+                                    playSound(sound02);
+                                } else if (reactionText3.getText() == "Sound3") {
+                                    playSound(sound03);
+                                }
+                                Toast.makeText(getApplicationContext(), "Playing 3", Toast.LENGTH_LONG).show();
+                                break;
+                            case 3:
+                                if (reactionText4.getText() == "Sound1") {
+                                    playSound(sound01);
+                                } else if (reactionText4.getText() == "Sound2") {
+                                    playSound(sound02);
+                                } else if (reactionText4.getText() == "Sound3") {
+                                    playSound(sound03);
+                                }
+                                Toast.makeText(getApplicationContext(), "Playing 4", Toast.LENGTH_LONG).show();
+                                break;
+                        }
+                    }
             }
         }
     };
