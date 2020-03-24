@@ -7,16 +7,12 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
-import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Layout;
 import android.view.DragEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,16 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     AssetManager am;
     SoundPool sp;
-    Handler h;
     MyTask mt;
     private int sound01, sound02, sound03;
     int streamSound;
@@ -58,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         am = getAssets();
-
-        h = new Handler();
 
         soundButton1 = findViewById(R.id.soundButton1);
         soundButton2 = findViewById(R.id.soundButton2);
