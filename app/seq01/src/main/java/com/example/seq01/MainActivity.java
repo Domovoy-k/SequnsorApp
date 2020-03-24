@@ -10,8 +10,10 @@ import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Layout;
 import android.view.DragEvent;
 import android.view.MotionEvent;
@@ -22,13 +24,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
     AssetManager am;
     SoundPool sp;
+    Handler h;
+    MyTask mt;
     private int sound01, sound02, sound03;
     int streamSound;
 
@@ -52,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         am = getAssets();
+
+        h = new Handler();
 
         soundButton1 = findViewById(R.id.soundButton1);
         soundButton2 = findViewById(R.id.soundButton2);
@@ -181,70 +189,83 @@ public class MainActivity extends AppCompatActivity {
                     playSound(sound03);
                     break;
                 case R.id.reaction_startButton:
-
-                    for (int i = 0; i < 4; i++) {
-
-                        switch (i) {
-                            case 0:
-                                if (reactionText1.getText() == "Sound1") {
-                                    playSound(sound01);
-                                } else if (reactionText1.getText() == "Sound2") {
-                                    playSound(sound02);
-                                } else if (reactionText1.getText() == "Sound3") {
-                                    playSound(sound03);
-                                }
-                                Toast.makeText(getApplicationContext(), "Playing 1", Toast.LENGTH_LONG).show();
-                                break;
-                            case 1:
-                                try {
-                                    Thread.sleep(1000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                if (reactionText2.getText() == "Sound1") {
-                                    playSound(sound01);
-                                } else if (reactionText2.getText() == "Sound2") {
-                                    playSound(sound02);
-                                } else if (reactionText2.getText() == "Sound3") {
-                                    playSound(sound03);
-                                }
-                                Toast.makeText(getApplicationContext(), "Playing 2", Toast.LENGTH_LONG).show();
-                                break;
-                            case 2:
-                                try {
-                                    Thread.sleep(2000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                if (reactionText3.getText() == "Sound1") {
-                                    playSound(sound01);
-                                } else if (reactionText3.getText() == "Sound2") {
-                                    playSound(sound02);
-                                } else if (reactionText3.getText() == "Sound3") {
-                                    playSound(sound03);
-                                }
-                                Toast.makeText(getApplicationContext(), "Playing 3", Toast.LENGTH_LONG).show();
-                                break;
-                            case 3:
-                                try {
-                                    Thread.sleep(3000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                if (reactionText4.getText() == "Sound1") {
-                                    playSound(sound01);
-                                } else if (reactionText4.getText() == "Sound2") {
-                                    playSound(sound02);
-                                } else if (reactionText4.getText() == "Sound3") {
-                                    playSound(sound03);
-                                }
-                                Toast.makeText(getApplicationContext(), "Playing 4", Toast.LENGTH_LONG).show();
-                                break;
-                        }
-                    }
+                    mt = new MyTask();
+                    mt.execute();
             }
         }
     };
+
+    public class MyTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            for (int i = 0; i < 4; i++) {
+
+                switch (i) {
+                    case 0:
+                        if (reactionText1.getText() == "Sound1") {
+                            playSound(sound01);
+                        } else if (reactionText1.getText() == "Sound2") {
+                            playSound(sound02);
+                        } else if (reactionText1.getText() == "Sound3") {
+                            playSound(sound03);
+                        }
+                        break;
+                    case 1:
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (reactionText2.getText() == "Sound1") {
+                            playSound(sound01);
+                        } else if (reactionText2.getText() == "Sound2") {
+                            playSound(sound02);
+                        } else if (reactionText2.getText() == "Sound3") {
+                            playSound(sound03);
+                        }
+                        break;
+                    case 2:
+                        try {
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (reactionText3.getText() == "Sound1") {
+                            playSound(sound01);
+                        } else if (reactionText3.getText() == "Sound2") {
+                            playSound(sound02);
+                        } else if (reactionText3.getText() == "Sound3") {
+                            playSound(sound03);
+                        }
+                        break;
+                    case 3:
+                        try {
+                            TimeUnit.SECONDS.sleep(3);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (reactionText4.getText() == "Sound1") {
+                            playSound(sound01);
+                        } else if (reactionText4.getText() == "Sound2") {
+                            playSound(sound02);
+                        } else if (reactionText4.getText() == "Sound3") {
+                            playSound(sound03);
+                        }
+                        break;
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(getApplicationContext(), "End of playing", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 
     private int loadSound (String fileName) {
