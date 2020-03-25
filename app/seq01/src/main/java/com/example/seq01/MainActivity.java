@@ -7,11 +7,13 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private int sound01, sound02, sound03;
     int streamSound;
 
-    Button soundButton1, soundButton2, soundButton3, testButton;
+    Button soundButton1, soundButton2, soundButton3, testButton, stopButton, cleanButton;
     TextView soundText1, soundText2, soundText3, reactionText1, reactionText2, reactionText3, reactionText4;
     LinearLayout react;
 
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         soundButton2 = findViewById(R.id.soundButton2);
         soundButton3 = findViewById(R.id.soundButton3);
         testButton = findViewById(R.id.reaction_startButton);
+        stopButton = findViewById(R.id.reaction_stopButton);
+        cleanButton = findViewById(R.id.reaction_cleanButton);
 
         soundText1 = findViewById(R.id.firstSound_text);
         soundText2 = findViewById(R.id.secondSound_text);
@@ -74,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         soundButton2.setOnClickListener(onClickListener);
         soundButton3.setOnClickListener(onClickListener);
         testButton.setOnClickListener(onClickListener);
+        stopButton.setOnClickListener(onClickListener);
+        cleanButton.setOnClickListener(onClickListener);
 
         soundText1.setOnLongClickListener(onLongClickListener);
         soundText2.setOnLongClickListener(onLongClickListener);
@@ -97,21 +103,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-/*    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
-        @RequiresApi(api = Build.VERSION_CODES.N)
-        @Override
-        public boolean onTouch(View v, MotionEvent event) {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData clipData = ClipData.newPlainText("", "");
-                View.DragShadowBuilder dsb = new View.DragShadowBuilder(v);
-                v.startDrag(clipData, dsb, v, 0);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    };
-*/
     View.OnDragListener onDragListener = new View.OnDragListener() {
         @SuppressLint("SetTextI18n")
         @Override
@@ -121,44 +112,125 @@ public class MainActivity extends AppCompatActivity {
             final View view = (View) event.getLocalState();
 
             switch (action) {
+
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    if (v.getId() == R.id.reaction_text1) {
+                        if (view.getId() == R.id.firstSound_text) {
+                            reactionText1.setBackgroundColor(Color.parseColor("GREEN"));
+                        } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText1.setBackgroundColor(Color.parseColor("BLUE"));
+                        } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText1.setBackgroundColor(Color.parseColor("RED"));
+                        }
+                    } else if (v.getId() == R.id.reaction_text2) {
+                        if (view.getId() == R.id.firstSound_text) {
+                            reactionText2.setBackgroundColor(Color.parseColor("GREEN"));
+                        } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText2.setBackgroundColor(Color.parseColor("BLUE"));
+                        } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText2.setBackgroundColor(Color.parseColor("RED"));
+                        }
+                    } else if (v.getId() == R.id.reaction_text3) {
+                        if (view.getId() == R.id.firstSound_text) {
+                            reactionText3.setBackgroundColor(Color.parseColor("GREEN"));
+                        } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText3.setBackgroundColor(Color.parseColor("BLUE"));
+                        } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText3.setBackgroundColor(Color.parseColor("RED"));
+                        }
+                    } else if (v.getId() == R.id.reaction_text4) {
+                        if (view.getId() == R.id.firstSound_text) {
+                            reactionText4.setBackgroundColor(Color.parseColor("GREEN"));
+                        } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText4.setBackgroundColor(Color.parseColor("BLUE"));
+                        } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText4.setBackgroundColor(Color.parseColor("RED"));
+                        }
+                    }
+                    break;
+
                 case DragEvent.ACTION_DROP:
                     if (v.getId() == R.id.reaction_text1) {
                         if (view.getId() == R.id.firstSound_text) {
+                            reactionText1.setBackgroundColor(Color.parseColor("WHITE"));
                             reactionText1.setText("Sound1");
                             } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText1.setBackgroundColor(Color.parseColor("WHITE"));
                             reactionText1.setText("Sound2");
                             } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText1.setBackgroundColor(Color.parseColor("WHITE"));
                             reactionText1.setText("Sound3");
                             }
                         } else if (v.getId() == R.id.reaction_text2) {
                             if (view.getId() == R.id.firstSound_text) {
+                                reactionText2.setBackgroundColor(Color.parseColor("WHITE"));
                                 reactionText2.setText("Sound1");
                             } else if (view.getId() == R.id.secondSound_text) {
+                                reactionText2.setBackgroundColor(Color.parseColor("WHITE"));
                                 reactionText2.setText("Sound2");
                             } else if (view.getId() == R.id.thirdSound_text) {
+                                reactionText2.setBackgroundColor(Color.parseColor("WHITE"));
                                 reactionText2.setText("Sound3");
                             }
                         } else if (v.getId() == R.id.reaction_text3) {
                             if (view.getId() == R.id.firstSound_text) {
+                                reactionText3.setBackgroundColor(Color.parseColor("WHITE"));
                                 reactionText3.setText("Sound1");
                             } else if (view.getId() == R.id.secondSound_text) {
+                                reactionText3.setBackgroundColor(Color.parseColor("WHITE"));
                                 reactionText3.setText("Sound2");
                             } else if (view.getId() == R.id.thirdSound_text) {
+                                reactionText3.setBackgroundColor(Color.parseColor("WHITE"));
                                 reactionText3.setText("Sound3");
                             }
                         } else if (v.getId() == R.id.reaction_text4) {
+                            if (view.getId() == R.id.firstSound_text) {
+                                reactionText4.setBackgroundColor(Color.parseColor("WHITE"));
+                                reactionText4.setText("Sound1");
+                            } else if (view.getId() == R.id.secondSound_text) {
+                                reactionText4.setBackgroundColor(Color.parseColor("WHITE"));
+                                reactionText4.setText("Sound2");
+                            } else if (view.getId() == R.id.thirdSound_text) {
+                                reactionText4.setBackgroundColor(Color.parseColor("WHITE"));
+                                reactionText4.setText("Sound3");
+                            }
+                        }
+                        break;
+
+                case DragEvent.ACTION_DRAG_EXITED:
+                    if (v.getId() == R.id.reaction_text1) {
                         if (view.getId() == R.id.firstSound_text) {
-                            reactionText4.setText("Sound1");
+                            reactionText1.setBackgroundColor(Color.parseColor("WHITE"));
                         } else if (view.getId() == R.id.secondSound_text) {
-                            reactionText4.setText("Sound2");
+                            reactionText1.setBackgroundColor(Color.parseColor("WHITE"));
                         } else if (view.getId() == R.id.thirdSound_text) {
-                            reactionText4.setText("Sound3");
+                            reactionText1.setBackgroundColor(Color.parseColor("WHITE"));
+                        }
+                    } else if (v.getId() == R.id.reaction_text2) {
+                        if (view.getId() == R.id.firstSound_text) {
+                            reactionText2.setBackgroundColor(Color.parseColor("WHITE"));
+                        } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText2.setBackgroundColor(Color.parseColor("WHITE"));
+                        } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText2.setBackgroundColor(Color.parseColor("WHITE"));
+                        }
+                    } else if (v.getId() == R.id.reaction_text3) {
+                        if (view.getId() == R.id.firstSound_text) {
+                            reactionText3.setBackgroundColor(Color.parseColor("WHITE"));
+                        } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText3.setBackgroundColor(Color.parseColor("WHITE"));
+                        } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText3.setBackgroundColor(Color.parseColor("WHITE"));
+                        }
+                    } else if (v.getId() == R.id.reaction_text4) {
+                        if (view.getId() == R.id.firstSound_text) {
+                            reactionText4.setBackgroundColor(Color.parseColor("WHITE"));
+                        } else if (view.getId() == R.id.secondSound_text) {
+                            reactionText4.setBackgroundColor(Color.parseColor("WHITE"));
+                        } else if (view.getId() == R.id.thirdSound_text) {
+                            reactionText4.setBackgroundColor(Color.parseColor("WHITE"));
                         }
                     }
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
                     break;
             }
             return true;
@@ -166,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
+        @SuppressLint("SetTextI18n")
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
@@ -181,6 +254,16 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.reaction_startButton:
                     mt = new MyTask();
                     mt.execute();
+                    break;
+                case R.id.reaction_stopButton:
+                    cancelTask();
+                    break;
+                case R.id.reaction_cleanButton:
+                    reactionText1.setText("Test");
+                    reactionText2.setText("Test");
+                    reactionText3.setText("Test");
+                    reactionText4.setText("Test");
+                    break;
             }
         }
     };
@@ -191,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
 
             for (int i = 0; i < 4; i++) {
-
+                if (isCancelled()) return null;
                 switch (i) {
                     case 0:
                         if (reactionText1.getText() == "Sound1") {
@@ -252,11 +335,30 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Toast.makeText(getApplicationContext(), "End of playing", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Toast.makeText(getApplicationContext(), "Cancelled", Toast.LENGTH_LONG).show();
         }
     }
 
-
+    private void cancelTask() {
+        if (mt == null) return;
+        mt.cancel(false);
+    }
 
     private int loadSound (String fileName) {
         AssetFileDescriptor afd;
